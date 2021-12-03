@@ -1,6 +1,7 @@
 package org.generation.italy.eventi;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Evento {
 	// attributi
@@ -19,8 +20,13 @@ public class Evento {
 			throw new Exception("Errore: il valore non è valido");
 		}
 		
+		if(data.isAfter(LocalDate.now())) {
+			this.data = data;
+		} else {
+			throw new Exception("Errore: data non valida");
+		}
+		
 		this.titolo = titolo;
-		this.data = LocalDate.now();
 		this.postiPrenotati = 0;
 		
 	}
@@ -53,8 +59,34 @@ public class Evento {
 	
 	
 	// metodi
-	public prenota
+	public void prenota() throws Exception {
+		if(data.isBefore(LocalDate.now())) {
+			throw new Exception("Errore: data non valida");
+		} else if(postiPrenotati == postiTot) {
+			throw new Exception("Errore: non ci sono posti disponibili");
+		} else {
+			postiPrenotati++;
+		}
+	}
 	
-	
+	public void disdici() throws Exception {
+		if(data.isBefore(LocalDate.now())) {
+			throw new Exception("Errore: data non valida");
+		} else if(postiPrenotati == 0) {
+			throw new Exception("Errore: non ci sono posti prenotati");
+		} else {
+			postiPrenotati--;
+		}
+	}
+
+
+	@Override
+	public String toString() {
+		String dataFormattata;
+		DateTimeFormatter df = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		dataFormattata = this.data.format(df);
+		return dataFormattata + " - " + this.titolo;
+	}
+		
 	
 }
