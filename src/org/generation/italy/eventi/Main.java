@@ -64,6 +64,9 @@ public class Main {
 						for(int i = 0; i < postiPrenotati; i++) {
 							evento.disdici();
 						}
+						if(numeroDisdetti > postiPrenotati) {
+							break;
+						}
 						postiPrenotati = postiPrenotati - numeroDisdetti;
 						postiTot = postiTot + numeroDisdetti;
 						System.out.println("Il numero di posti prenotati è: " + postiPrenotati + " posti disponibili: " + postiTot);
